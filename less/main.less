@@ -1,0 +1,137 @@
+// out: ../web/css/main.css, sourcemap: false, compress: true
+/*
+    Core Stylesheet for unattended server
+*/
+
+// Responsive media queries
+@desktop: ~"only screen and (min-width: 940px)"; /* tablet, landscape iPad, lo-res laptops ands desktops */
+@tablet: ~"only screen and (min-width: 640px) and (max-width: 939px)"; /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+@medium: ~"only screen and (min-width: 480px) and (max-width: 639px)"; /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+@phone: ~"only screen and (min-width: 350px) and (max-width: 479px)"; /* smartphones, iPhone, portrait 480x320 phones */
+@mini: ~"only screen and (max-width: 349px)"; /* Bloody tiny */
+
+/* Used like this
+
+@media @desktop {
+    background-color: green;
+}
+
+@media @tablet {
+    background-color: red;
+}
+
+@media @medium {
+    background-color: blue;
+}
+
+@media @phone {
+    background-color: purple;
+}
+
+@media @mini {
+    background-color: purple;
+}
+*/
+
+//@import "reset.less";
+//@import "elements.less";
+
+/* Colours */
+@color-white: #FFFFFF;
+@color-white-off: #CBCACC;
+@color-grey: #777777;
+@color-blue-dark: #000044;
+
+/* Fonts */
+@font-main: sans-serif;
+
+/* Sizes */
+
+html {
+	font-family: @font-main;
+	color: @color-grey;
+	background-color: @color-white;
+}
+
+body {
+}
+
+p {
+	font-size: 14px;
+}
+
+ul {
+	list-style: none;
+}
+
+.errorSummary {
+	padding: 10px;
+}
+
+.ar {
+	text-align: right;
+}
+
+
+div.holder {
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+
+	&.top {
+		margin-top: 20px;
+	}
+
+	&.medium {
+		width: 400px;
+	}
+
+	div.notice {
+		h1 {
+			padding: 10px;
+		}
+	}
+
+	div.login-form,
+	div.install-form {
+		padding: 10px;
+	}
+
+	div.installer {
+		&.instructions {
+
+			li {
+				text-align: left;
+			}
+		}
+	}
+}
+
+/* Yii GridView Style */
+.grid-view {
+	table.items {
+		th {
+			background: #e2e2e2;
+			a {
+				color: #555;
+
+				&:hover {
+					color: #222;
+				}
+			}
+		}
+
+		tr.odd {
+			background: #f3f3f3;
+
+			&:hover {
+				background: #f0f0f0;
+			}
+		}
+	}
+}
+
+.narrow {
+	max-width: 800px;
+}

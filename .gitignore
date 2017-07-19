@@ -1,6 +1,14 @@
+/.project
 assets/*
 !assets/.gitignore
 protected/runtime/*
 !protected/runtime/.gitignore
 protected/data/*.db
 themes/classic/views/
+web/assets/*
+!web/assets/.gitignore
+web/protected/runtime/*
+!web/protected/runtime/.gitignore
+web/protected/data/*.db
+web/themes/classic/views/
+*.log
