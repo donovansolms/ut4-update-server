@@ -6,7 +6,7 @@ class UpdateController extends Controller
     {
         return array(
             'accessControl',
-        	'postOnly + delete', // we only allow deletion via POST request
+        	'postOnly + checkUt4', // we only allow deletion via POST request
         );
     }
 
@@ -14,7 +14,7 @@ class UpdateController extends Controller
     {
 		return array(
 				array('allow',
-	    			'actions'=>array('process'),
+	    			'actions'=>array('process', 'checkUt4', "versionMap"),
 	    			'users'=>array('*'),
 	    		),
 	    		array('deny',
@@ -56,6 +56,62 @@ class UpdateController extends Controller
 			$this->pageTitle = 'Update';
 			$this->render('process');
 		}
+	}
+
+	/**
+	 * Checks is a new UT4 version is available for the POSTed version
+	 */
+	public function actionCheckUt4()
+	{
+		if (Yii::app()->request->isPostRequest)
+		{
+			$post_data = Yii::app()->request->rawBody;
+			if ($post_data == '')
+			{
+				throw new CHttpException(400, 'Missing Update Check Request body');
+			}
+			// Parse the POST data
+			$updateCheckRequest = json_decode($post_data);
+
+			$checkLog = new Ut4VersionCheckLog();
+			$checkLog->client_id = $updateCheckRequest->client_id;
+			$checkLog->current_version = $updateCheckRequest->current_version;
+			$checkLog->installed_versions = json_encode($updateCheckRequest->versions);
+			$checkLog->ip = Yii::app()->request->userHostAddress;
+			$checkLog->kernel_version = $updateCheckRequest->os->KernelVersion;
+			$checkLog->dist_id = $updateCheckRequest->os->DistributionID;
+			$checkLog->dist = $updateCheckRequest->os->Distribution;
+			$checkLog->dist_version = $updateCheckRequest->os->DistributionVersion;
+			$checkLog->dist_pretty = $updateCheckRequest->os->DistributionPrettyName;
+			$checkLog->date_created = new CDbExpression('NOW()');
+			$checkLog->save();
+
+
+			// Log the check
+			// Check if a new version exists
+			// Return new version information if available
+			// else return false
+		}
+	}
+
+	/**
+	 * Returns the key value map of versions to semantic versions
+	 */
+	public function actionVersionMap()
+	{
+		$models = Ut4Versionmap::model()->findAll("is_deleted = 0");
+		$versions = array();
+
+		foreach ($models as $model)
+		{
+			array_push($versions, array(
+				"version" => $model->version,
+				"semver" => $model->semver,
+				"released" => date("Y-m-d", strtotime($model->date_released)) . "T00:00:00Z"
+			));
+		}
+		header("Content-Type: application/json");
+		echo json_encode($versions);
 	}
 
 	/**
