@@ -12,4 +12,4 @@ Tournament 4 on Linux.
 ## Contact
 
 You can get in contact on Twitter
-[@donovansolms](https://twitter.com/donovansolms) or by [creating an issue](https://github.com/donovansolms/ut4-updater/issues/new)
+[@donovansolms](https://twitter.com/donovansolms) or by [creating an issue](https://github.com/donovansolms/ut4-update-server/issues/new)
