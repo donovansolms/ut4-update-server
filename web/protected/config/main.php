@@ -36,7 +36,11 @@ return array(
 		'request'=>array(
 			'class'=>'application.components.HttpRequest',
             'enableCsrfValidation'=>true,
-            'noCsrfValidationRoutes'=>array('update/process', 'update/checkUt4'),
+            'noCsrfValidationRoutes'=>array(
+							'update/process',
+							'update/checkUt4',
+							'update/versionHash'
+						),
         ),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
@@ -50,6 +54,7 @@ return array(
 				'install/<step:\d+>' => 'install/install',
 				'update/ut4-check' => 'update/checkUt4',
 				'update/ut4-versionmap' => 'update/versionMap',
+				'update/ut4-hash/<version:\w+>' => 'update/versionHash',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

@@ -14,7 +14,11 @@ class UpdateController extends Controller
     {
 		return array(
 				array('allow',
-	    			'actions'=>array('process', 'checkUt4', "versionMap"),
+	    			'actions'=>array(
+							'process',
+							'checkUt4',
+							'versionMap',
+							'versionHash'),
 	    			'users'=>array('*'),
 	    		),
 	    		array('deny',
@@ -87,8 +91,7 @@ class UpdateController extends Controller
 			$checkLog->save();
 
 
-			// Log the check
-			// Check if a new version exists
+			// TODO Check if a new version exists
 			// Return new version information if available
 			// else return false
 		}
@@ -112,6 +115,32 @@ class UpdateController extends Controller
 		}
 		header("Content-Type: application/json");
 		echo json_encode($versions);
+	}
+
+	/**
+	 * Returns the JSON files+hashes for the given version
+	 */
+	public function actionVersionHash($version)
+	{
+		$model = '';
+		if ($version == "latest")
+		{
+			$criteria = new CDbCriteria();
+			$criteria->condition = 'is_deleted = 0';
+			$criteria->order = 'version DESC';
+			$criteria->limit = 1;
+			$model = Ut4VersionHashes::model()->find($criteria);
+		}
+		else
+		{
+			$model = Ut4VersionHashes::model()->find('version = ? AND is_deleted = 0', array($version));
+		}
+		if ($model == '')
+		{
+			throw new CHttpException(404);
+		}
+		header("Content-Type: application/json");
+		echo $model->hashes;
 	}
 
 	/**
