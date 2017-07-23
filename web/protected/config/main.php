@@ -39,7 +39,8 @@ return array(
             'noCsrfValidationRoutes'=>array(
 							'update/process',
 							'update/checkUt4',
-							'update/versionHash'
+							'update/versionHash',
+							'update/updateDeltaHash'
 						),
         ),
 		'urlManager'=>array(
@@ -55,6 +56,7 @@ return array(
 				'update/ut4-check' => 'update/checkUt4',
 				'update/ut4-versionmap' => 'update/versionMap',
 				'update/ut4-hash/<version:\w+>' => 'update/versionHash',
+				'update/ut4-update/<deltaHash:\w+>' => 'update/updateDeltaHash',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

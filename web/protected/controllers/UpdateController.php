@@ -18,7 +18,8 @@ class UpdateController extends Controller
 							'process',
 							'checkUt4',
 							'versionMap',
-							'versionHash'),
+							'versionHash',
+							'updateDeltaHash'),
 	    			'users'=>array('*'),
 	    		),
 	    		array('deny',
@@ -141,6 +142,21 @@ class UpdateController extends Controller
 		}
 		header("Content-Type: application/json");
 		echo $model->hashes;
+	}
+
+	/**
+	 * Returns the delta update package to download based on the hash provided
+	 */
+	public function actionUpdateDeltaHash($deltaHash)
+	{
+		$model = Ut4UpdatePackages::model()->find('update_hash = ? AND is_deleted = 0', array($deltaHash));
+		if ($model == '')
+		{
+			throw new CHttpException(404);
+		}
+		echo json_encode(array(
+			"update_url" => $model->update_url,
+		));
 	}
 
 	/**
