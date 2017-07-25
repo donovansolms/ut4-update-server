@@ -91,10 +91,26 @@ class UpdateController extends Controller
 			$checkLog->date_created = new CDbExpression('NOW()');
 			$checkLog->save();
 
+			$response = array(
+				"current_version" => $updateCheckRequest->current_version,
+				"latest_version" => $updateCheckRequest->current_version,
+				"update_available" => false,
+			);
 
-			// TODO Check if a new version exists
-			// Return new version information if available
-			// else return false
+			$criteria = new CDbCriteria();
+			$criteria->condition = 'is_deleted = 0';
+			$criteria->order = 'version DESC';
+			$criteria->limit = 1;
+			$model = Ut4Versions::model()->find($criteria);
+			if ($model != '' && $model->version > $updateCheckRequest->current_version)
+			{
+				$response["latest_version"] = $model->version;
+				$response["update_available"] = true;
+			}
+			header("Content-Type: application/json");
+			echo json_encode($response);
+			return;
+
 		}
 	}
 
