@@ -5,7 +5,8 @@
  *
  * The followings are the available columns in table 'ut4_update_packages':
  * @property string $id
- * @property string $update_hash
+ * @property string $from_version
+ * @property string $to_version
  * @property string $update_url
  * @property string $date_created
  * @property integer $is_deleted
@@ -28,13 +29,14 @@ class Ut4UpdatePackages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('update_hash, update_url', 'required'),
+			array('from_version, to_version, update_url', 'required'),
 			array('is_deleted', 'numerical', 'integerOnly'=>true),
-			array('update_hash, update_url', 'length', 'max'=>128),
+			array('from_version, to_version', 'length', 'max'=>16),
+			array('update_url', 'length', 'max'=>128),
 			array('date_created', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, update_hash, update_url, date_created, is_deleted', 'safe', 'on'=>'search'),
+			array('id, from_version, to_version, update_url, date_created, is_deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +58,8 @@ class Ut4UpdatePackages extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'update_hash' => 'Update Hash',
+			'from_version' => 'From Version',
+			'to_version' => 'To Version',
 			'update_url' => 'Update Url',
 			'date_created' => 'Date Created',
 			'is_deleted' => 'Is Deleted',
@@ -82,7 +85,8 @@ class Ut4UpdatePackages extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('update_hash',$this->update_hash,true);
+		$criteria->compare('from_version',$this->from_version,true);
+		$criteria->compare('to_version',$this->to_version,true);
 		$criteria->compare('update_url',$this->update_url,true);
 		$criteria->compare('date_created',$this->date_created,true);
 		$criteria->compare('is_deleted',$this->is_deleted);

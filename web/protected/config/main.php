@@ -38,9 +38,7 @@ return array(
             'enableCsrfValidation'=>true,
             'noCsrfValidationRoutes'=>array(
 							'update/process',
-							'update/checkUt4',
-							'update/versionHash',
-							'update/updateDeltaHash'
+							'ut4/check',
 						),
         ),
 		'urlManager'=>array(
@@ -53,10 +51,11 @@ return array(
 				'manage' => 'manage/index',
 				'install' => 'install/install',
 				'install/<step:\d+>' => 'install/install',
-				'update/ut4-check' => 'update/checkUt4',
-				'update/ut4-versionmap' => 'update/versionMap',
-				'update/ut4-hash/<version:\w+>' => 'update/versionHash',
-				'update/ut4-update/<deltaHash:\w+>' => 'update/updateDeltaHash',
+
+				//'update/ut4-check' => 'update/checkUt4',
+				//'update/ut4-versionmap' => 'update/versionMap',
+				//'update/ut4-hash/<version:\w+>' => 'update/versionHash',
+				//'update/ut4-update/<deltaHash:\w+>' => 'update/updateDeltaHash',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
