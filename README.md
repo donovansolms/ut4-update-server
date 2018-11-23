@@ -1,3 +1,5 @@
+*This project is incomplete and has been abandoned*
+
 # Unreal Tournament 4 Update Server
 
 An update server for the Unreal Tournament 4 Linux Launcher
